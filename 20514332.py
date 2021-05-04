@@ -61,8 +61,9 @@ storage = []
 def cache_str(frm):
     return ','.join([str(data) for data in map(lambda entry: entry.data, frm.queue)])
 
-def write_output(outfile, line):
-    outfile.write(f'{line}\n')
+def write_output(outfile, line, newline=True):
+    result = f'{line}\n' if newline else line
+    outfile.write(result)
 
 def move_mru(frm, to):
     frm_mru = frm.get_mru()
@@ -197,7 +198,7 @@ def main(argv):
         # Print cache result
         write_output(output_file, cache_str(l1_cache))
         write_output(output_file, cache_str(l2_cache))
-        write_output(output_file, cache_str(l3_cache))
+        write_output(output_file, cache_str(l3_cache), newline=False)
             
 if __name__ == "__main__":
     main(sys.argv)
